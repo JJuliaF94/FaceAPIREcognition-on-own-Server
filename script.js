@@ -1,6 +1,7 @@
 /*unser Video Element*/ 
 const video = document.getElementById('video')
 var isPlaying = false;
+
 /*hier wird ein Event Listener hinzugefügt, sobald die Animation Happy beendet wurde - wird der "isPlaying" Wert auf false gesetzt, das Video wird also aktuell nicht abgespielt */
 document.getElementById("animationhappy").addEventListener("ended", function(){
   isPlaying = false;
@@ -9,6 +10,7 @@ document.getElementById("animationhappy").addEventListener("ended", function(){
 document.getElementById("animationsad").addEventListener("ended", function(){
   isPlaying = false;
 }) 
+
 /*die Models müssen geladen werden, damit das Gesicht erkannt werden kann und nicht einfach nur das Video gerendert wird*/
 Promise.all([
   /*diese vier Modelle sind zur Gesichtserkennung sowie Analyse erforderlich*/
@@ -26,12 +28,8 @@ Promise.all([
 /*verbindet die Webcam mit dem Videoelement*/ 
 function startVideo() {
 
-  /*navigator.mediaDevices.getUserMedia (
-    { video: {} },
-    stream => video.srcObject = stream,
-    err => console.error(err)
-  )*/
-  //Garrits Änderung
+  
+  //mit Garrits Hilfe :)
   /*"Navigator.mediaDevices" gibt ein MediaDevices-Objekt zurück, das den Zugriff auf angeschlossene Medieneingabegeräte wie Kameras und Mikrofone sowie die Bildschirmfreigabe ermöglicht */
   navigator.mediaDevices
       /*"MediaDevices.getUserMedia()" gibt die Aufforderung eine Medieneingabe zu verwenden, die einen MediaStream erzeugt*/
@@ -46,12 +44,9 @@ function startVideo() {
         console.log(err.message);
       });
 }
+
 /*hier wird ein Event Listener hinzugefügt, sobald das Video abgespielt wird*/
 video.addEventListener('play', () => {
-  // const canvas = faceapi.createCanvasFromMedia(video)
-  // document.body.append(canvas)
-  // const displaySize = { width: video.width, height: video.height }
-  // faceapi.matchDimensions(canvas, displaySize)
   /*set Interval, um den Code mehrfach in einer Reihe ausführen zu können*/
   setInterval(async () => {
     /*alle Gesichter, die sich in der Kamera befinden sollen erkannt werden*/
@@ -66,6 +61,7 @@ video.addEventListener('play', () => {
           document.getElementById("animationsad").style.display = "block"
 
           document.getElementById("animationhappy").style.display = "none"
+
         /*sobald mehr als 0 Personen erkannt werden und die Emotion Sad (Traurig) nicht getrackt wurde, soll die Emotion Happy getrackt werden, ist der Schwellenwert mehr als 0.7, soll in der Console 'happy' ausgegeben werden und die Animation Sad Happy abgespielt werden */  
         }else if(detections[0].expressions.happy > 0.7){
           console.log('happy');
@@ -76,39 +72,8 @@ video.addEventListener('play', () => {
 
           document.getElementById("animationsad").style.display = "none"
         }
-
-
       
-      //console.log(detections[0].expressions);
       }
-      //print("Hello World")
-      //console.log("hello world");
-      //console.log(detections[1].expressions)
-      // FACE_EXPRESSION_LABELS = ['helloworld', 'happy', 'sad', 'angry', 'fearful', 'disgusted', 'surprised'];
-      //   if(FACE_EXPRESSION_LABELS[1]){
-         
-    
-      //     console.log("HAPPY");
-        
-          
-      //   }
-      
-      // if(detections.length[1]){
-      //   console.log("HAPPY");
-      // }
-      
-      // if (detections.length//returns the length of an array, a string, or the number of parameters expected by a function
-      //   >
-      //   0.99) {
-      //     console.log('happy');
-      //   }
-      
-
-    // const resizedDetections = faceapi.resizeResults(detections, displaySize)
-    // canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-    // faceapi.draw.drawDetections(canvas, resizedDetections)
-    // faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
-    // faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
 
     /*alle 500 Millisekunden (0,5 Sekunden) wird der Code aufgerufen*/
   }, 500)
