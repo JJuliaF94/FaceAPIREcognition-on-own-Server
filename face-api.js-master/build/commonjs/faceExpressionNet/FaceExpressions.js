@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FACE_EXPRESSION_LABELS = ['neutral', 'happy', 'sad', 'angry', 'fearful', 'disgusted', 'surprised'];
+exports.FACE_EXPRESSION_LABELS = ['helloworld', 'happy', 'sad', 'angry', 'fearful', 'disgusted', 'surprised'];
 var FaceExpressions = /** @class */ (function () {
     function FaceExpressions(probabilities) {
         var _this = this;
@@ -19,5 +19,6 @@ var FaceExpressions = /** @class */ (function () {
     };
     return FaceExpressions;
 }());
+
 exports.FaceExpressions = FaceExpressions;
 //# sourceMappingURL=FaceExpressions.js.map

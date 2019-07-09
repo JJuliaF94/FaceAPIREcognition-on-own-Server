@@ -1,4 +1,4 @@
-export var FACE_EXPRESSION_LABELS = ['neutral', 'happy', 'sad', 'angry', 'fearful', 'disgusted', 'surprised'];
+export var FACE_EXPRESSION_LABELS = ['helloworld', 'happy', 'sad', 'angry', 'fearful', 'disgusted', 'surprised'];
 var FaceExpressions = /** @class */ (function () {
     function FaceExpressions(probabilities) {
         var _this = this;

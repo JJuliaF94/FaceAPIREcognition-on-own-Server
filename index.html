@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <!--die Api muss vor der script Datei geladen werden-->
   <script defer src="./face-api.min.js"></script>
   <script defer src="./script.js"></script>
+  <!--mithilfe dieses Tutorials wurde der Prototyp zum Leben erweckt: https://www.youtube.com/watch?v=CVClHLwv-4I&t=183s-->
   <style>
     body {
       margin: 0;
@@ -17,13 +19,44 @@
       justify-content: center;
       align-items: center;
     }
-
-    canvas {
-      position: absolute;
+    /*die Kamera wird als vollständige Transparenz ausgegeben, damit sie
+    im Hintergrund läuft, jedoch nicht sichtbar ist für den Nutzer der Website*/
+    #video{
+      opacity: 0;
     }
+
+     #animationsad{
+      position: relative;
+      width: 150%;
+      height: 150%;
+    }
+
+    #animationhappy{
+      position: relative;
+      width: 150%;
+      height: 150%;
+    } 
+
   </style>
 </head>
 <body>
+  <div>
+    <!--hier wird die Animation „Traurig“ eingebunden-->
+    <video id="animationsad">
+          <source src="./Traurig.mov" type="video/quicktime">
+          Your browser does not support the video tag.
+          </video>
+  </div>
+
+  <div>
+    <!--hier wird die Animation „Glücklich“ eingebunden-->
+    <video id="animationhappy">
+          <source src="./Happy.mov" type="video/quicktime">
+          Your browser does not support the video tag.
+          </video>
+  </div>
+  <!--hier wird die Kamera ausgegeben-->
+  <!--da wir keinen Sound wollen, verwenden wir hier autoplay muted-->
   <video id="video" width="720" height="560" autoplay muted></video>
 </body>
 </html>
