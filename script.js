@@ -1,5 +1,6 @@
 /*unser Video Element*/ 
 const video = document.getElementById('video')
+/*legt eine Variable fest, die bestimmt, dass der normale Zustand des Videos ist, dass es nicht abgespielt wird*/ 
 var isPlaying = false;
 
 /*hier wird ein Event Listener hinzugefügt, sobald die Animation Happy beendet wurde - wird der "isPlaying" Wert auf false gesetzt, das Video wird also aktuell nicht abgespielt */
@@ -51,9 +52,9 @@ video.addEventListener('play', () => {
   setInterval(async () => {
     /*alle Gesichter, die sich in der Kamera befinden sollen erkannt werden*/
     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
-    /*sobald mehr als 0 Personen erkannt werden und gerade keine Videodatei abgespielt wird, soll die Emotion Sad (Traurig) getrackt werden, ist der Schwellenwert mehr als 0.7, soll in der Console 'sad' ausgegeben werden und die Animation Sad (Traurig) abgespielt werden */
+    /*sobald mehr als 0 Personen erkannt werden und gerade keine Videodatei abgespielt wird, soll die Emotion Sad (Traurig) getrackt werden, ist der Schwellenwert mehr als 0.5, soll in der Console 'sad' ausgegeben werden und die Animation Sad (Traurig) abgespielt werden */
     if (detections.length > 0 && !isPlaying) {
-        if(detections[0].expressions.sad > 0.7){
+        if(detections[0].expressions.sad > 0.5){
           console.log('sad');
           document.getElementById("animationsad").play() 
           isPlaying = true;
@@ -62,8 +63,8 @@ video.addEventListener('play', () => {
 
           document.getElementById("animationhappy").style.display = "none"
 
-        /*sobald mehr als 0 Personen erkannt werden und die Emotion Sad (Traurig) nicht getrackt wurde, soll die Emotion Happy getrackt werden, ist der Schwellenwert mehr als 0.7, soll in der Console 'happy' ausgegeben werden und die Animation Sad Happy abgespielt werden */  
-        }else if(detections[0].expressions.happy > 0.7){
+        /*sobald mehr als 0 Personen erkannt werden und die Emotion Sad (Traurig) nicht getrackt wurde, soll die Emotion Happy getrackt werden, ist der Schwellenwert mehr als 0.5, soll in der Console 'happy' ausgegeben werden und die Animation Happy abgespielt werden */  
+        }else if(detections[0].expressions.happy > 0.5){
           console.log('happy');
           document.getElementById("animationhappy").play()
           isPlaying = true;
